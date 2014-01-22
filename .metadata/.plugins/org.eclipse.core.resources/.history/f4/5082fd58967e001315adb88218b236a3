@@ -1,0 +1,6 @@
+package com.hcd.lgame.fire.utils;
+
+public class Sounds {
+
+	private static Sounds soundsfactory;
+}

@@ -1,0 +1,7 @@
+package com.hcd.lgame.fire;
+
+import org.loon.framework.android.game.core.graphics.Screen;
+
+public class HomeScreen extends Screen{
+
+}

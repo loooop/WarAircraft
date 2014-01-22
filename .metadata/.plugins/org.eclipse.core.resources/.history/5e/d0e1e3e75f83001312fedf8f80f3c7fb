@@ -1,0 +1,18 @@
+package com.hcd.lgame.fire.utils;
+
+import java.util.LinkedList;
+
+import android.app.Activity;
+import android.app.Application;
+
+public class ExitApplication extends Application {
+
+	private LinkedList<Activity> activityList  = new LinkedList<Activity>();
+	private static ExitApplication instance;
+	
+	public ExitApplication() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	//单例模式获取唯一的ExitApplication
+}

@@ -1,0 +1,35 @@
+package com.hcd.lgame.fire.utils;
+
+import com.hcd.lgame.fire.MainActivity;
+import com.hcd.lgame.fire.R;
+
+import android.media.AudioManager;
+import android.media.SoundPool;
+
+public class Sounds {
+
+	private static Sounds soundFactory;
+	private static SoundPool sp;
+	private static int sounds[];
+	
+	public Sounds() {
+
+		sounds = new int[5];
+		sp = new SoundPool(10, AudioManager.STREAM_SYSTEM, 5);
+		sounds[0] = sp.load("raw/shut.ogg", 1);
+		sounds[0] = sp.load(MainActivity.class, R.raw.shut, 1);
+	}
+	
+	public void palySound(int i) {
+		sp.play(sounds[i], 1, 1, 0, 0, 1);
+	}
+	
+	public static synchronized Sounds getInstance() {
+		if (soundFactory != null) {
+			return soundFactory;
+		} else {
+			soundFactory = new Sounds();
+			return soundFactory;
+		}
+	}
+}

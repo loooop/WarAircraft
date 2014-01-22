@@ -1,0 +1,15 @@
+package com.hcd.lgame.fire.utils;
+
+import android.media.SoundPool;
+
+public class Sounds {
+
+	private static Sounds soundFactory;
+	private static SoundPool sp;
+	private static int sounds[];
+	
+	public Sounds() {
+
+		sounds = new int[5];
+	}
+}

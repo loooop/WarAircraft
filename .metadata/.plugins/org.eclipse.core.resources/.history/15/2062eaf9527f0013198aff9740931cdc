@@ -1,0 +1,7 @@
+package com.hcd.lgame.fire;
+
+import org.loon.framework.android.game.LGameAndroid2DActivity;
+
+public class HomeActivity extends  LGameAndroid2DActivity{
+
+}

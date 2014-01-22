@@ -1,0 +1,19 @@
+package com.hcd.lgame.fire.utils;
+
+import android.R;
+import android.media.AudioManager;
+import android.media.SoundPool;
+
+public class Sounds {
+
+	private static Sounds soundFactory;
+	private static SoundPool sp;
+	private static int sounds[];
+	
+	public Sounds() {
+
+		sounds = new int[5];
+		sp = new SoundPool(10, AudioManager.STREAM_SYSTEM, 5);
+		sounds[0] = sp.load(this, 1., 1);
+	}
+}

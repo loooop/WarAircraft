@@ -1,0 +1,7 @@
+package com.hcd.lgame.fire.utils;
+
+import android.app.Application;
+
+public class ExitApplication extends Application {
+
+}

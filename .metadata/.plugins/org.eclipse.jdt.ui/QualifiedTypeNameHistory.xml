@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="android.media.SoundPool"/>
+<fullyQualifiedTypeName name="android.media.AudioManager"/>
+<fullyQualifiedTypeName name="android.R"/>
+<fullyQualifiedTypeName name="android.R.raw"/>
+<fullyQualifiedTypeName name="com.hcd.lgame.fire.R"/>
+<fullyQualifiedTypeName name="com.hcd.lgame.fire.MainActivity"/>
+<fullyQualifiedTypeName name="com.hcd.lgame.fire.R.raw"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="org.loon.framework.android.game.core.graphics.Screen"/>
+<fullyQualifiedTypeName name="org.loon.framework.android.game.LGameAndroid2DActivity"/>
+<fullyQualifiedTypeName name="com.hcd.lgame.fire.HomeActivity"/>
+<fullyQualifiedTypeName name="com.hcd.lgame.fire.HomeScreen"/>
+<fullyQualifiedTypeName name="org.loon.framework.android.game.utils.GraphicsUtils"/>
+<fullyQualifiedTypeName name="com.hcd.lgame.fire.utils.Images"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="com.hcd.lgame.fire.GameActivity"/>
+<fullyQualifiedTypeName name="com.hcd.lgame.fire.utils.Sounds"/>
+<fullyQualifiedTypeName name="org.loon.framework.android.game.action.sprite.Sprite"/>
+<fullyQualifiedTypeName name="android.os.Handler"/>
+<fullyQualifiedTypeName name="java.lang.Thread"/>
+<fullyQualifiedTypeName name="java.lang.Runnable"/>
+<fullyQualifiedTypeName name="org.loon.framework.android.game.core.graphics.window.LButton"/>
+<fullyQualifiedTypeName name="android.widget.Button"/>
+<fullyQualifiedTypeName name="com.hcd.lgame.fire.GameScreen"/>
+<fullyQualifiedTypeName name="org.loon.framework.android.game.core.graphics.window.LPaper"/>
+<fullyQualifiedTypeName name="org.loon.framework.android.game.core.graphics.LColor"/>
+</qualifiedTypeNameHistroy>

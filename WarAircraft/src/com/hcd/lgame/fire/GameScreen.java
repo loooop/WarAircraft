@@ -1,15 +1,15 @@
 package com.hcd.lgame.fire;
 
-import java.util.LinkedList;
-
+import java.util.ArrayList;
 import org.loon.framework.android.game.action.sprite.Sprite;
-import org.loon.framework.android.game.core.graphics.LColor;
 import org.loon.framework.android.game.core.graphics.Screen;
 import org.loon.framework.android.game.core.graphics.device.LGraphics;
 import org.loon.framework.android.game.core.timer.LTimerContext;
 
 import com.hcd.lgame.fire.utils.Constent;
 import com.hcd.lgame.fire.utils.Enemy;
+import com.hcd.lgame.fire.utils.Images;
+import com.hcd.lgame.fire.utils.Sounds;
 
 import android.os.Handler;
 import android.view.KeyEvent;
@@ -20,25 +20,25 @@ public class GameScreen extends Screen{
 	//我军飞机
 	private Sprite ownAirPlane;
 	//敌军飞机
-	private LinkedList<Enemy> enemys = new LinkedList<Enemy>();
-	
+	private ArrayList<Enemy> enemys = new ArrayList<Enemy>();
 	//飞机子弹
-	private LinkedList<Sprite> bullets = new LinkedList<Sprite>();
+	private ArrayList<Sprite> bullets = new ArrayList<Sprite>();
 	//游戏得分
 	private double score;
 	private Handler handler;
 	//手指触摸位置与飞机位置的坐标偏移量
 	private double offsetX, offsetY;
-	
+	private Sounds soundsFactory;
 	private boolean gameOver = false;
 	
-	public GameScreen() {
+	public GameScreen(GameActivity ma) {
+		this.soundsFactory = new Sounds(ma);
 		initRole();
 	}
 	
 	private void initRole() {
 		score = 0;
-		this.setBackground(LColor.lightGray);
+		this.setBackground(Images.getInstance().getImage(5));
 		ownAirPlane = new Sprite(Images.getInstance().getImage(1));
 		ownAirPlane.setLocation(250, this.getHeight() - ownAirPlane.getHeight());
 		/* 将精灵加入精灵管理器 */
@@ -130,7 +130,29 @@ public class GameScreen extends Screen{
 			if (!gameOver) {
 				for (int i = 0; i < bullets.size(); i++) {
 					GameScreen.this.bullets.get(i).setLocation(GameScreen.this.bullets.get(i).getX(),
-							GameScreen.this.bullets.get(i).getY() - 15);
+							GameScreen.this.bullets.get(i).getY() - 8);
+					
+					for (int j = 0; j < enemys.size(); j++) {
+						if (bullets.get(i).isRectToRect(enemys.get(j).getSprite())) {
+							enemys.get(j).setShutNum(enemys.get(j).getShutNum() - 1);
+							if (enemys.get(j).getShutNum() <= 0) {
+								if (enemys.get(j).getType().equals(Constent.SMALL_AIRPLANE)) {
+									score += 100;
+								} else if (enemys.get(j).getType().equals(Constent.MIDDLE_AIRPLANE)) {
+									score += 300;
+								} else if (enemys.get(j).getType().equals(Constent.LARGE_AIRPLANE)) {
+									score += 500;
+								} 
+								soundsFactory.palySound(1);
+								getSprites().remove(enemys.get(j).getSprite());
+								enemys.remove(j);
+							}
+							//getSprites().remove(enemys.get(j).getSprite());
+							getSprites().remove(bullets.get(i));
+							bullets.remove(i);
+						}
+					}
+					
 					//移除飞出屏幕外的子弹
 					if (GameScreen.this.bullets.get(i).getY() <= 0) {
 						GameScreen.this.getSprites().remove(bullets.get(i));
@@ -148,27 +170,6 @@ public class GameScreen extends Screen{
 		public void run() {
 			if (!gameOver) {
 				fireBullet();
-				for (int i = 0; i < bullets.size(); i++) {
-					for (int j = 0; j < enemys.size(); j++) {
-						if (bullets.get(i).isRectToRect(enemys.get(j).getSprite())) {
-							enemys.get(j).setShutNum(enemys.get(j).getShutNum() - 1);
-							if (enemys.get(j).getShutNum() <= 0) {
-								if (enemys.get(j).getType().equals(Constent.SMALL_AIRPLANE)) {
-									score += 100;
-								} else if (enemys.get(j).getType().equals(Constent.MIDDLE_AIRPLANE)) {
-									score += 300;
-								} else if (enemys.get(j).getType().equals(Constent.LARGE_AIRPLANE)) {
-									score += 500;
-								} 
-								getSprites().remove(enemys.get(j).getSprite());
-								enemys.remove(j);
-							}
-							//getSprites().remove(enemys.get(j).getSprite());
-							getSprites().remove(bullets.get(i));
-							bullets.remove(i);
-						}
-					}
-				}
 				handler.postDelayed(this, 100);
 			}
 		}
@@ -245,6 +246,7 @@ public class GameScreen extends Screen{
 		Sprite bullet = new Sprite(Images.getInstance().getImage(3));
 		bullet.setLocation(ownAirPlane.getWidth() / 2 + ownAirPlane.x() - bullet.getWidth() / 2 + 1, ownAirPlane.getY() - bullet.getHeight() - 10);
 		bullets.add(bullet);
+		soundsFactory.palySound(0);
 		getSprites().add(bullet);
 	}
 	/**
