@@ -2,10 +2,14 @@ package com.hcd.lgame.fire;
 
 import java.util.ArrayList;
 import org.loon.framework.android.game.action.sprite.Sprite;
+import org.loon.framework.android.game.core.graphics.LFont;
+import org.loon.framework.android.game.core.graphics.LImage;
 import org.loon.framework.android.game.core.graphics.Screen;
 import org.loon.framework.android.game.core.graphics.device.LGraphics;
 import org.loon.framework.android.game.core.graphics.window.LButton;
 import org.loon.framework.android.game.core.graphics.window.LPaper;
+import org.loon.framework.android.game.core.timer.LTimerContext;
+
 import com.hcd.lgame.fire.utils.Constent;
 import com.hcd.lgame.fire.utils.Enemy;
 import com.hcd.lgame.fire.utils.ExitApplication;
@@ -32,7 +36,7 @@ public class GameScreen extends Screen{
 	private double offsetX, offsetY;
 	private Sounds soundsFactory;
 	private boolean gameOver;
-	public LButton startBut, aboutBut, exitBut;
+	private LButton startBut, aboutBut, exitBut;
 	private LPaper beginPaper;
 	private boolean init;
 
@@ -54,8 +58,10 @@ public class GameScreen extends Screen{
 	}
 	
 	private void initUI() {
-		
-		ownAirPlane = new Sprite(Images.getInstance().getImage(1));
+		LImage[] ownAirPlaneImg = new LImage[2];
+		ownAirPlaneImg[0] = Images.getInstance().getImage(1);
+		ownAirPlaneImg[1] = Images.getInstance().getImage(8);
+		ownAirPlane = new Sprite(ownAirPlaneImg);
 		ownAirPlane.setLocation((getWidth() - ownAirPlane.getWidth())/2, getHeight()-ownAirPlane.getHeight());
 		initRole();
 	}
@@ -90,7 +96,7 @@ public class GameScreen extends Screen{
 											GameScreen.this.getSprites().add(enemy.getSprite());
 											GameScreen.this.enemys.add(enemy);
 											
-											handler.postDelayed(this, 500);
+											handler.postDelayed(this, 1000);
 										}
 									}
 								});
@@ -107,7 +113,7 @@ public class GameScreen extends Screen{
 											for (int i = 0; i < GameScreen.this.enemys.size(); i++) {
 												Sprite enemy = GameScreen.this.enemys.get(i).getSprite();
 												GameScreen.this.enemys.get(i).getSprite().setLocation(GameScreen.this.enemys.get(i).getSprite().getX(), 
-														GameScreen.this.enemys.get(i).getSprite().getY() + 10);
+														GameScreen.this.enemys.get(i).getSprite().getY() + 20);
 												if (GameScreen.this.enemys.get(i).getSprite().getY() >= GameScreen.this.getHeight()) {
 													enemys.remove(i);
 													GameScreen.this.getSprites().remove(GameScreen.this.enemys.get(i).getSprite());
@@ -119,6 +125,15 @@ public class GameScreen extends Screen{
 													//游戏结束重新开始
 													getSprites().removeAll();
 													gameOver = true;
+													exitBut = new LButton("res/button.png") {
+														@Override
+														public void doClick() {
+															ExitApplication.getInstance().exit();
+														}
+													};
+													exitBut.setText("退出游戏");
+													centerOn(exitBut);
+													add(exitBut);
 													return ;
 													//handler. ;
 												}
@@ -139,7 +154,7 @@ public class GameScreen extends Screen{
 										if (!gameOver) {
 											for (int i = 0; i < bullets.size(); i++) {
 												GameScreen.this.bullets.get(i).setLocation(GameScreen.this.bullets.get(i).getX(),
-														GameScreen.this.bullets.get(i).getY() - 8);
+														GameScreen.this.bullets.get(i).getY() - 30);
 												
 												for (int j = 0; j < enemys.size(); j++) {
 													if (bullets.get(i).isRectToRect(enemys.get(j).getSprite())) {
@@ -283,12 +298,16 @@ public class GameScreen extends Screen{
 
 	@Override
 	public void draw(LGraphics arg0) {
-		
+		arg0.setFont(LFont.SIZE_LARGE);
+		arg0.drawString(score+"", 5, 70);
 	}
 
 	@Override
 	public void onTouch(float arg0, float arg1, MotionEvent arg2, int arg3,
 			int arg4) {
 		
+	}
+	@Override
+	public void alter(LTimerContext timer) {
 	}
 }

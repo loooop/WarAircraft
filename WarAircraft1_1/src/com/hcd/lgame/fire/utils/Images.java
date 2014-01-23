@@ -26,6 +26,7 @@ public class Images {
 		images[5] = GraphicsUtils.loadImage("res/background.jpg");
 		images[6] = GraphicsUtils.loadImage("res/bullets.png");
 		images[7] = GraphicsUtils.loadImage("res/button.png");
+		images[8] = GraphicsUtils.loadImage("res/ownplane2.png");
 	}
 	
 	public LImage getImage(int i) {
